@@ -24,7 +24,7 @@ Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\
 Set colSettings = objWMIService.ExecQuery("Select * from Win32_OperatingSystem")
 
 For Each objOperatingSystem in colSettings 
-Wscript.Echo "OS Name: " & objOperatingSystem.Name
+MsgBox "OS Name: " & objOperatingSystem.Name, 64
 Next
 End Function
 
@@ -35,19 +35,26 @@ Function ProgramCheck
 
 Set objFSO = WScript.CreateObject("Scripting.FileSystemObject") 
 
-'Waar is PASv3.exe etc geïnstalleerd?
-WorkingDir = "D:\School\Blok6\Scripting\ScriptingProject\" 
-Set objFolder = objFSO.GetFolder((Left(WorkingDir, Len(WorkingDir)-1)))
+WorkingDir = Left(Wscript.ScriptFullName, Len(Wscript.ScriptFullname) - Len(Wscript.ScriptName))
+'Als PAS,SAP,Focus niet in dezelfde folder staat als dit script waar is PASv3.exe, SAPv2.3.exe en Focusv2.exe dan geïnstalleerd? (uncomment next line)
+'WorkingDir = "C:\Program Files(x86)\" 
+
+Set objFolder = objFSO.GetFolder(Left(WorkingDir, Len(WorkingDir)-1))
 Set objFiles = objFolder.Files
 
 If objFSO.FileExists(WorkingDir & "PASv3.exe") Then
-        MsgBox "PASv3.exe is Geinstalleerd."
+        MsgBox "PASv3.exe is Geinstalleerd.", 64
 	Else
-		MsgBox "PASv3.exe mist op het systeem!!!", 48
+		MsgBox "PASv3.exe mist op het systeem!!!", 16
 End If
 If objFSO.FileExists(WorkingDir & "SAPv2.3.exe") Then
-        MsgBox "SAPv2.3.exe is Geinstalleerd."
+        MsgBox "SAPv2.3.exe is Geinstalleerd.", 64
 	Else
-		MsgBox "SAPv2.3.exe mist op het systeem!!!", 48
+		MsgBox "SAPv2.3.exe mist op het systeem!!!", 16
+End If
+If objFSO.FileExists(WorkingDir & "Focusv2.exe") Then
+        MsgBox "Focusv2.exe is Geinstalleerd.", 64
+	Else
+		MsgBox "Focusv2.exe mist op het systeem!!!", 16
 End If
 End Function
