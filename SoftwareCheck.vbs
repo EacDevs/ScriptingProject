@@ -35,8 +35,8 @@ Function ProgramCheck
 
 Set objFSO = WScript.CreateObject("Scripting.FileSystemObject") 
 
-WorkingDir = Left(Wscript.ScriptFullName, Len(Wscript.ScriptFullname) - Len(Wscript.ScriptName))
-'Als PAS,SAP,Focus niet in dezelfde folder staat als dit script waar is PASv3.exe, SAPv2.3.exe en Focusv2.exe dan geïnstalleerd? (uncomment next line)
+WorkingDir = Left(Wscript.ScriptFullName, Len(Wscript.ScriptFullname) - Len(Wscript.ScriptName))& "Software\"
+'Als PAS,SAP,Focus niet in dezelfde folder staat als dit script, Waar is PASv3.exe, SAPv2.3.exe en Focusv2.exe dan geïnstalleerd? (uncomment next line)
 'WorkingDir = "C:\Program Files(x86)\" 
 
 Set objFolder = objFSO.GetFolder(Left(WorkingDir, Len(WorkingDir)-1))
