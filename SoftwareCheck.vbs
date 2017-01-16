@@ -82,5 +82,32 @@ If objFSO.FileExists(OfficeDir & "EXCEL.EXE") Then
 		MsgBox "Microsoft Excel mist op het systeem!!!", 16
 End If
 
+If objFSO.FileExists(OfficeDir & "GROOVE.EXE") Then
+		MsgBox "Onedrive is Geinstalleerd!!!", 16
+End If
+
+If objFSO.FileExists(OfficeDir & "lync.exe") Then
+		MsgBox "Skype for Business is Geinstalleerd!!!", 16
+End If
+
+If objFSO.FileExists(OfficeDir & "MSACCESS.EXE") Then
+		MsgBox "Microsof Access is Geinstalleerd!!!", 16
+End If
+
+If objFSO.FileExists(OfficeDir & "MSPUB.EXE") Then
+		MsgBox "Microsoft Publisher is Geinstalleerd!!!", 16
+End If
+
+If objFSO.FileExists(OfficeDir & "ONENOTE.EXE") Then
+		MsgBox "Microsoft OneNote is Geinstalleerd!!!", 16
+End If
+
+If objFSO.FileExists(OfficeDir & "OUTLOOK.EXE") Then
+		MsgBox "Microsoft Outlook is Geinstalleerd!!!", 16
+End If
+
+If objFSO.FileExists(OfficeDir & "VISIO.EXE") Then
+		MsgBox "Microsoft Visio is Geinstalleerd!!!", 16
+End If
 
 End Function
