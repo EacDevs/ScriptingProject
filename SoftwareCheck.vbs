@@ -11,7 +11,6 @@ Dim objFiles
 Dim WorkingDir
 'Variabelen voor OfficeCheck:
 Dim OfficeDir
-Dim objFSO2
 Dim objFolder2
 Dim objFiles2
 
@@ -66,19 +65,18 @@ End If
 End Function
 
 Function OfficeCheck
-Set objFSO2 = WScript.CreateObject("Scripting.FileSystemObject") 
 OfficeDir = "C:\Program Files (x86)\Microsoft Office\root\Office16\" 
 
-Set objFolder2 = objFSO2.GetFolder(Left(OfficeDir, Len(OfficeDir)-1))
+Set objFolder2 = objFSO.GetFolder(Left(OfficeDir, Len(OfficeDir)-1))
 Set objFiles2 = objFolder2.Files
 
-If objFSO2.FileExists(OfficeDir & "WINWORD.EXE") Then
+If objFSO.FileExists(OfficeDir & "WINWORD.EXE") Then
         MsgBox "Microsoft Word is Geinstalleerd.", 64
 	Else
 		MsgBox "Microsoft Word mist op het systeem!!!", 16
 End If
 
-If objFSO2.FileExists(OfficeDir & "EXCEL.EXE") Then
+If objFSO.FileExists(OfficeDir & "EXCEL.EXE") Then
         MsgBox "Microsoft Excel is Geinstalleerd.", 64
 	Else
 		MsgBox "Microsoft Excel mist op het systeem!!!", 16
