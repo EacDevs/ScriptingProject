@@ -1,13 +1,16 @@
 Option Explicit
-'Variabelen voor het txt-bestand
+'VariabelenA voor het txt-bestand
 Dim objFSO, wshNetwork, Log, objShell, savedPath
 Dim objOperatingSystem, objWMIService, colSettings
-'Variabelen voor CheckRegistry
+'VariabelenB voor CheckRegistry
 Dim strComputer, strKey, strEntry1a, strEntry1b, strEntry3, strEntry4, objReg, arrSubkeys, strSubkey, strValue1, intRet1, intValue3, _
-intValue4, strIgnoreList(8), IgnoreListEntries, i
+intValue4, IgnoreListEntries, i
+'VariabelenC voor IgnoreList + Aantal Ignores in totaal.
 Dim IgnoreListCounter
-IgnoreListEntries = 8
+Dim strIgnoreList(9)
+IgnoreListEntries = 9
 
+'Selecteer de Juiste Keys in REGISTRY
 Const HKLM = &H80000002 'HKEY_LOCAL_MACHINE 
 strComputer = "." 
 strKey = "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\" 
@@ -16,12 +19,14 @@ strEntry1b = "QuietDisplayName"
 strEntry3 = "VersionMajor" 
 strEntry4 = "VersionMinor" 
 
+'Roep de verschillende functies op.
 Call WriteText
 Call WindowsCheck
 Call BuildIgnore
 Call CheckRegistry
 Call CloseText
 
+'Functie voor het Maken van het textbestand.
 Function WriteText
 Set objFSO = WScript.CreateObject("Scripting.FileSystemObject") 
 Set wshNetwork = CreateObject( "WScript.Network" )
@@ -29,6 +34,7 @@ Set wshNetwork = CreateObject( "WScript.Network" )
 Set Log = objFSO.CreateTextFile(Left(Wscript.ScriptFullName, Len(Wscript.ScriptFullname) - Len(Wscript.ScriptName))& wshNetwork.ComputerName & ".txt", 2)
 End Function
 
+'Functie voor het checken van de windowsversie.
 Function WindowsCheck
 strComputer = "."
 Set objWMIService = GetObject("winmgmts:" & "{impersonationLevel=impersonate}!\\" & strComputer & "\root\cimv2")
@@ -39,6 +45,7 @@ MsgBox "OS Name: " & objOperatingSystem.Name, 64
 Next
 End Function
 
+'Specifieer hier de programma's die genegeerd moeten worden. Vergeet niet om de twee getallen in VariabelenC aan te passen.
 Function BuildIgnore
 strIgnoreList(0) = "Windows 10"
 strIgnoreList(1) = "Microsoft Word 2016"
@@ -51,6 +58,8 @@ strIgnoreList(7) = "Focus-agenda"
 strIgnoreList(8) = "SAP"
 End Function
 
+
+'Hier wordt de Registry geraadpleegd.
 Function CheckRegistry
 Set objReg = GetObject("winmgmts://" & strComputer & "/root/default:StdRegProv") 
 objReg.EnumKey HKLM, strKey, arrSubkeys 
@@ -100,6 +109,7 @@ For Each strSubkey In arrSubkeys
 
 End Function
 
+'Sluit het textbestand en vraag de gebruiker of hij deze wil openen.
 Function CloseText
 Set objShell = CreateObject("WScript.Shell")
 savedPath = Left(Wscript.ScriptFullName, Len(Wscript.ScriptFullname) - Len(Wscript.ScriptName))& wshNetwork.ComputerName & ".txt"
