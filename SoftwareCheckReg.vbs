@@ -1,3 +1,5 @@
+'Gemaakt door Chrstiaan Schildwacht en Mitchel Hut
+
 Option Explicit
 'VariabelenA voor het txt-bestand
 Dim objFSO, wshNetwork, Log, objShell, savedPath
